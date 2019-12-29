@@ -1,0 +1,19 @@
+{
+  "name": "radio-server",
+  "version": "1.0.0",
+  "description": "Interface between audio input and Icecast stream",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RiversideRadio/radio-server.git"
+  },
+  "author": "Ewan Roycroft <ewan@riversideradio.com> (http://ewanroycroft.co.uk)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RiversideRadio/radio-server/issues"
+  },
+  "homepage": "https://github.com/RiversideRadio/radio-server#readme"
+}
