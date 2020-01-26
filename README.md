@@ -6,5 +6,6 @@ It includes provisions to notify technicians of downtime and to switch to an eme
 ## Installation
 Clone the repository, then install the dependencies:
 ```shell
-$ npm install alsa-capture --save
+$ apt-get install icecast2 libshout3 libshout3-dev libasound2-dev
+$ npm install mic lame nodeshout --save
 ```
