@@ -62,7 +62,11 @@ micInputStream.on('error', function(err) {
 });
 
 micInputStream.on('silence', function() {
-    console.log('Stream has gone silent.');
+    console.log('Audio input has gone silent.');
+});
+
+micInputStream.on('sound', function() {
+    console.log('Audio input is back.');
 });
 
 

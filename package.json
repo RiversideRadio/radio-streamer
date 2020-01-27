@@ -4,7 +4,7 @@
   "description": "Interface between audio input and Icecast stream",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
