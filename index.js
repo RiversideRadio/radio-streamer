@@ -58,15 +58,15 @@ var shoutStream = encoder.pipe(new ShoutStream(shout));
 
 //-- Event handlers
 micInputStream.on('error', function(err) {
-    cosole.log(`Error in input stream: ${err}`);
+    console.error(`Error in input stream: ${err}`);
 });
 
 micInputStream.on('silence', function() {
-    console.log('Audio input has gone silent.');
+    console.warn('Audio input has gone silent.');
 });
 
 micInputStream.on('sound', function() {
-    console.log('Audio input is back.');
+    console.info('Audio input is back.');
 });
 
 
