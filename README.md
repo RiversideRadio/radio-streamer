@@ -10,7 +10,7 @@ $ apt-get install icecast2 libshout3 libshout3-dev libasound2-dev
 $ npm install ashishbajaj99/mic lame nodeshout --save
 ```
 
-## Running on stream for a radio station
+## Running stream as a process
 You can keep the stream running as a process using PM2:
 ```shell
 $ npm install pm2 -g
