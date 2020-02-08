@@ -10,6 +10,11 @@ $ apt-get install icecast2 libshout3 libshout3-dev libasound2-dev
 $ npm install ashishbajaj99/mic lame nodeshout --save
 ```
 
+Create `config.json` from template:
+```shell
+$ cp config.template.json config.json
+```
+
 ## Running stream as a process
 You can keep the stream running as a process using PM2:
 ```shell

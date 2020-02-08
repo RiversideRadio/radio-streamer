@@ -1,0 +1,25 @@
+{
+    "stream": {
+        "metadata": {
+            "name"          : "Riverside Radio",
+            "description"   : "Switch On SW London",
+            "genre"         : "Community",
+            "url"           : "http://www.riversideradio.com/"
+        },
+
+        "server": {
+            "host"      : "localhost",
+            "port"      : 8000,
+            "user"      : "source",
+            "password"  : "hackme",
+            "mount"     : "stream"
+        },
+
+        "format": {
+            "mp3"       : true,
+            "bitrate"   : "128",
+            "samplerate": "44100",
+            "channels"  : "2"
+        }
+    }
+}

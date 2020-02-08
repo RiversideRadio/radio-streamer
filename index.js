@@ -2,26 +2,27 @@
 const nodeshout = require('nodeshout'),
     ShoutStream = nodeshout.ShoutStream,
     mic = require('mic'),
-    lame = require('lame');
+    lame = require('lame'),
+    config = require('./config.json');
 
 
 //-- Shout setup
 nodeshout.init();
 var shout = nodeshout.create();
 
-shout.setName('Riverside Radio');
-shout.setDescription('Switch On SW London');
-shout.setGenre('Variety');
-shout.setUrl('http://www.riversideradio.com/');
-shout.setHost('localhost');
-shout.setPort(8000);
-shout.setUser('source');
-shout.setPassword('dontpanic');
-shout.setMount('stream');
-shout.setFormat(1); // 0=ogg, 1=mp3
-shout.setAudioInfo('bitrate', '192');
-shout.setAudioInfo('samplerate', '44100');
-shout.setAudioInfo('channels', '2');
+shout.setName(config.stream.metadata.name);
+shout.setDescription(config.stream.metadata.description);
+shout.setGenre(config.stream.metadata.genre);
+shout.setUrl(config.stream.metadata.url);
+shout.setHost(config.stream.server.host);
+shout.setPort(config.stream.server.port);
+shout.setUser(config.stream.server.user);
+shout.setPassword(config.stream.server.password);
+shout.setMount(config.stream.server.mount);
+shout.setFormat(config.stream.format.mp3); // 0=ogg, 1=mp3
+shout.setAudioInfo('bitrate', config.stream.format.bitrate);
+shout.setAudioInfo('samplerate', config.stream.format.samplerate);
+shout.setAudioInfo('channels', config.stream.format.channels);
 
 
 //-- Microphone setup
@@ -58,15 +59,15 @@ var shoutStream = encoder.pipe(new ShoutStream(shout));
 
 //-- Event handlers
 micInputStream.on('error', function(err) {
-    console.error(`Error in input stream: ${err}`);
+    cosole.log(`Error in input stream: ${err}`);
 });
 
 micInputStream.on('silence', function() {
-    console.warn('Audio input has gone silent.');
+    console.log('Audio input has gone silent.');
 });
 
 micInputStream.on('sound', function() {
-    console.info('Audio input is back.');
+    console.log('Audio input is back.');
 });
 
 
