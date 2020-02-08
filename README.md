@@ -1,5 +1,5 @@
-# Radio Server
-This is a node interface between a radio station's audio output and an [Icecast](https://icecast.org/) server. In our case, the server receives audio from [Myriad Playout](https://www.broadcastradio.com/myriad-playout) and streams it to our [Shoutcast](https://www.shoutcast.com/) hosting service. 
+# Radio Streamer
+This is a node interface between a radio station's audio output and an [Icecast](https://icecast.org/) server. In our case, the streamer receives audio from [Myriad Playout](https://www.broadcastradio.com/myriad-playout) and sends it to our Icecast hosting service. 
 
 TODO: include provisions to notify technicians of downtime and to switch to an emergency broadcast recording in the event Myriad Playout goes silent.
 
