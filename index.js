@@ -1,15 +1,14 @@
 //-- Includes
 const nodeshout = require('nodeshout'),
-    ShoutStream = nodeshout.ShoutStream,
-    mic = require('mic'),
-    lame = require('lame'),
-    config = require('./config.json');
+      ShoutStream = nodeshout.ShoutStream,
+      mic = require('mic'),
+      lame = require('lame'),
+      config = require('./config.json');
 
 
 //-- Shout setup
 nodeshout.init();
-var shout = nodeshout.create();
-
+let shout = nodeshout.create();
 shout.setName(config.stream.metadata.name);
 shout.setDescription(config.stream.metadata.description);
 shout.setGenre(config.stream.metadata.genre);
@@ -26,35 +25,35 @@ shout.setAudioInfo('channels', config.stream.format.channels);
 
 
 //-- Microphone setup
-var micInstance = mic({
-    device: 'hw:0,0',
-    rate: '44100',
-    channels: '2',
+let micInstance = mic({
+    device: config.input.device,
+    rate: config.stream.format.samplerate,
+    channels: config.stream.format.channels,
     debug: false,
     exitOnSilence: 325 // about 30s (1 frame ≈ 93ms)
 });
 
 //-- Encoder setup
-var encoder = new lame.Encoder({
+let encoder = new lame.Encoder({
     // input
-    channels: 2,
-    bitDepth: 16,
-    sampleRate: 44100,
-
+    channels: config.stream.format.channels,
+    bitDepth: config.input.format.bitdepth,
+    sampleRate: config.stream.format.samplerate,
+    
     // output
-    bitRate: 192,
-    outSampleRate: 44100,
+    bitRate: config.stream.format.bitrate,
+    outSampleRate: config.stream.format.samplerate,
     mode: lame.STEREO
 });
 
 
 //-- Routing
 //  Pipe microphone into Lame
-var micInputStream = micInstance.getAudioStream();
+let micInputStream = micInstance.getAudioStream();
 micInputStream.pipe(encoder);
 
 //  Pipe encoded audio to Shoutcast
-var shoutStream = encoder.pipe(new ShoutStream(shout));
+let shoutStream = encoder.pipe(new ShoutStream(shout));
 
 
 //-- Event handlers

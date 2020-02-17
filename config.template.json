@@ -1,4 +1,12 @@
 {
+    "input": {
+        "device"    : "hw:0,0",
+
+        "format": {
+            "bitdepth"  : "16"
+        }
+    },
+
     "stream": {
         "metadata": {
             "name"          : "Riverside Radio",
