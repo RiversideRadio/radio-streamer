@@ -6,8 +6,8 @@ TODO: include provisions to notify technicians of downtime and to switch to an e
 ## Installation
 Clone the repository, then install the dependencies:
 ```shell
-$ apt-get install icecast2 libshout3 libshout3-dev libasound2-dev
-$ npm install ashishbajaj99/mic lame nodeshout --save
+$ apt install icecast2 libshout3 libshout3-dev libasound2-dev
+$ npm install
 ```
 
 Create `config.json` from template:

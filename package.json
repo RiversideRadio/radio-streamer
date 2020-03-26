@@ -1,5 +1,5 @@
 {
-  "name": "radio-server",
+  "name": "radio-streamer",
   "version": "1.0.0",
   "description": "Interface between audio input and Icecast stream",
   "main": "index.js",
@@ -17,9 +17,13 @@
   },
   "homepage": "https://github.com/RiversideRadio/radio-server#readme",
   "dependencies": {
+    "event-clock": "^1.2.2",
+    "fs-extra": "^8.1.0",
     "lame": "^1.2.4",
     "mic": "^2.1.2",
-    "nodeshout": "^0.1.3"
+    "nodeshout": "^0.1.3",
+    "path": "^0.12.7",
+    "string-to-ms": "^1.1.2"
   },
   "devDependencies": {}
 }

@@ -108,3 +108,6 @@ tests/
 
 # Config
 config.json
+
+# VSCode
+.vscode/

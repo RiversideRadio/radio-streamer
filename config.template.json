@@ -1,9 +1,17 @@
 {
+    "common": {
+        "format": {
+            "sampleRate": "44100",
+            "channels"  : "2"
+        }
+    },
+
     "input": {
-        "device"    : "hw:0,0",
+        "device"        : "hw:0,0",
+        "silentFrames"  : 325,
 
         "format": {
-            "bitdepth"  : "16"
+            "bitDepth"  : "16"
         }
     },
 
@@ -24,10 +32,20 @@
         },
 
         "format": {
-            "mp3"       : true,
-            "bitrate"   : "128",
-            "samplerate": "44100",
-            "channels"  : "2"
+            "bitrate"   : "128"
+        }
+    },
+
+    "recorder": {
+        "output": {
+            "directory" : "/recordings",
+            "bleed"     : 2,
+            "keepFor"   : "30d"
+        },
+
+        "format": {
+            "lossless"  : false,
+            "bitrate"   : "320"
         }
     }
 }
