@@ -21,6 +21,7 @@
     "fs-extra": "^8.1.0",
     "lame": "^1.2.4",
     "mic": "^2.1.2",
+    "nodemailer": "^6.4.6",
     "nodeshout": "^0.1.3",
     "path": "^0.12.7",
     "string-to-ms": "^1.1.2"

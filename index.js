@@ -1,7 +1,8 @@
 const mic       = require('mic'),
       config    = require('./config.json'),
       streamer  = require('./streamer'),
-      recorder  = require('./recorder');
+      recorder  = require('./recorder'),
+      mailer    = require('./mailer');
 
 //-- Microphone setup
 let micInstance = mic({
@@ -24,10 +25,12 @@ micInputStream.on('error', (err) => {
 
 micInputStream.on('silence', function() {
     console.warn('[ MIC ] Audio: silence detected');
+    mailer.alertSilence();
 });
 
 micInputStream.on('sound', function() {
     console.info('[ MIC ] Audio: input is back');
+    mailer.alertSound();
 });
 
 //-- Start everything

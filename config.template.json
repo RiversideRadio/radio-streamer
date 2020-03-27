@@ -47,5 +47,20 @@
             "lossless"  : false,
             "bitrate"   : "320"
         }
+    },
+
+    "mail": {
+        "host": "smtp.example.com",
+        "port": 465,
+        "name": "Stream",
+        "addr": "noreply@example.com",
+        "auth": {
+            "user": "noreply@example.com",
+            "pass": "hackme"
+        },
+        "recipients": [
+            "recipient1@example.com",
+            "recipient2@example.com"
+        ]
     }
 }
