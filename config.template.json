@@ -37,6 +37,8 @@
     },
 
     "recorder": {
+        "minsPast": [0, 30],
+
         "output": {
             "directory" : "/recordings",
             "bleed"     : 2,

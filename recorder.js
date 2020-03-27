@@ -95,13 +95,7 @@ const run = function() {
         }
     }
 
-    schedule([0], 2);
-    
-    // let mins = [];
-    // for (let i = 0; i < 60; i += 5) {
-    //     mins.push(i);
-    // }
-    // schedule(mins, 1);
+    schedule(config.recorder.minsPast, config.recorder.bleed);
 
     console.info('[ REC ] Initialised');
     startRecording(outputReel[activeReel]);
