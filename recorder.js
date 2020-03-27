@@ -1,5 +1,6 @@
 const lame      = require('lame'),
       fs        = require('fs'),
+      Transform = require('stream').Transform,
       clock     = require('event-clock'),
       cleanup   = require('./folder-cleanup'),
       config    = require('./config.json');
@@ -7,14 +8,20 @@ const lame      = require('lame'),
 //-- Encoder setup
 const encoder = new lame.Encoder({
     // input
-    channels: config.recorder.format.channels,
+    channels: config.common.format.channels,
     bitDepth: config.input.format.bitDepth,
-    sampleRate: config.recorder.format.sampleRate,
+    sampleRate: config.common.format.sampleRate,
     
     // output
     bitRate: config.recorder.format.bitrate,
-    outSampleRate: config.recorder.format.sampleRate,
-    mode: config.recorder.format.channels == 2 ? lame.STEREO : lame.MONO
+    outSampleRate: config.common.format.sampleRate,
+    mode: config.common.format.channels == 2 ? lame.STEREO : lame.MONO
+});
+
+//-- To connect lossless recording
+//  TODO: save to .wav instead of .raw
+const audioJack = new Transform({
+    transform: (data, _, done) => done(null, data)
 });
 
 //-- Output streams named "reels" to differentiate from streamer
@@ -30,8 +37,8 @@ const startRecording = function(filename) {
         filename = `${date.getFullYear()}-${leadZero(date.getMonth() + 1)}-${leadZero(date.getDate())}_${leadZero(date.getHours())}-${leadZero(date.getMinutes())}`;
     }
 
-    outputReel[activeReel] = fs.WriteStream(`${config.recorder.output.directory}/${filename}.${config.recorder.format.lossless ? 'wav' : 'mp3'}`);
-    encoder.pipe(outputReel[activeReel]);
+    outputReel[activeReel] = fs.WriteStream(`${config.recorder.output.directory}/${filename}.${config.recorder.format.lossless ? 'raw' : 'mp3'}`);
+    (config.recorder.format.lossless ? audioJack : encoder).pipe(outputReel[activeReel]);
     console.info(`[ REC ] Start: recording "${filename}" on reel ${activeReel + 1}`);
 }
 
@@ -102,6 +109,5 @@ const run = function() {
     switchReel();
 };
 
-//  TODO: if lossless, pipe straight to the filestream
-exports.input   = config.recorder.format.lossless ? encoder : encoder;
+exports.input   = config.recorder.format.lossless ? audioJack : encoder;
 exports.run     = run;
