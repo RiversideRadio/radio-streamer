@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/RiversideRadio/radio-server#readme",
   "dependencies": {
+    "audio-gain": "^1.1.2",
     "event-clock": "^1.2.2",
     "fs-extra": "^8.1.0",
     "lame": "^1.2.4",

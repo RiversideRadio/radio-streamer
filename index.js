@@ -2,6 +2,7 @@ const mic       = require('mic'),
       config    = require('./config.json'),
       streamer  = require('./streamer'),
       recorder  = require('./recorder'),
+      mixer     = require('./mixer'),
       mailer    = require('./mailer');
 
 //-- Microphone setup
@@ -15,20 +16,21 @@ let micInstance = mic({
 
 //-- Pipe mic to modules
 let micInputStream = micInstance.getAudioStream();
-micInputStream.pipe(streamer.input);
-micInputStream.pipe(recorder.input);
+micInputStream.pipe(mixer.channel[0]);
+mixer.channel[0].pipe(streamer.input);
+mixer.channel[0].pipe(recorder.input);
 
 //-- Mic event handlers
-micInputStream.on('error', (err) => {
+micInputStream.on('error', err => {
     console.error(`[ MIC ] Error: ${err}`);
 });
 
-micInputStream.on('silence', function() {
+micInputStream.on('silence', () => {
     console.warn('[ MIC ] Audio: silence detected');
     mailer.alertSilence();
 });
 
-micInputStream.on('sound', function() {
+micInputStream.on('sound', () => {
     console.info('[ MIC ] Audio: input is back');
     mailer.alertSound();
 });
