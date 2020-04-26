@@ -29,5 +29,5 @@ Conflicting `libssl1.0-dev` and `libssl-dev` packages mean that NPM and `libshou
 
 A workaround is to downgrade Node.js:
 ```shell
-$ apt-get install nodejs=8.10.0~dfsg-2ubuntu0.2 nodejs-dev=8.10.0~dfsg-2ubuntu0.2 npm libshout3-dev
+$ apt install nodejs=8.10.0~dfsg-2ubuntu0.2 nodejs-dev=8.10.0~dfsg-2ubuntu0.2 npm libshout3-dev
 ```
