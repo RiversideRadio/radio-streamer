@@ -7,11 +7,11 @@
     },
 
     "input": {
-        "device"        : "hw:0,0",
+        "deviceId"      : -1,
         "silentFrames"  : 325,
 
         "format": {
-            "bitDepth"  : "16"
+            "bitDepth"  : 16
         }
     },
 

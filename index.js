@@ -1,41 +1,32 @@
-const mic       = require('mic'),
+const portAudio = require('naudiodon'),
       config    = require('./config.json'),
       streamer  = require('./streamer'),
       recorder  = require('./recorder'),
       mixer     = require('./mixer'),
       mailer    = require('./mailer');
 
-//-- Microphone setup
-let micInstance = mic({
-    device: config.input.device,
-    rate: config.common.format.sampleRate,
-    channels: config.common.format.channels,
-    debug: false,
-    exitOnSilence: config.input.silentFrames || 325 // about 30s (1 frame ≈ 93ms)
+//-- PortAudio setup
+let ai = new portAudio.AudioIO({
+    inOptions: {
+        channelCount: config.common.format.channels,
+        sampleFormat: config.input.format.bitDepth,
+        sampleRate: config.common.format.sampleRate,
+        deviceId: config.input.deviceId,
+        closeOnError: false
+    }
 });
 
-//-- Pipe mic to modules
-let micInputStream = micInstance.getAudioStream();
-micInputStream.pipe(mixer.channel[0]);
+//-- Pipe audio to modules
+ai.pipe(mixer.channel[0]);
 mixer.channel[0].pipe(streamer.input);
 mixer.channel[0].pipe(recorder.input);
 
-//-- Mic event handlers
-micInputStream.on('error', err => {
-    console.error(`[ MIC ] Error: ${err}`);
-});
-
-micInputStream.on('silence', () => {
-    console.warn('[ MIC ] Audio: silence detected');
-    mailer.alertSilence();
-});
-
-micInputStream.on('sound', () => {
-    console.info('[ MIC ] Audio: input is back');
-    mailer.alertSound();
+//-- PortAudio event handlers
+ai.on('error', err => {
+    console.error(`[ AUD ] Error: ${err}`);
 });
 
 //-- Start everything
 streamer.run();
 recorder.run();
-micInstance.start();
+ai.start();
