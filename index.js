@@ -3,7 +3,8 @@ const portAudio = require('naudiodon'),
       streamer  = require('./streamer'),
       recorder  = require('./recorder'),
       mixer     = require('./mixer'),
-      mailer    = require('./mailer');
+      mailer    = require('./mailer'),
+      IsSilence = require('./silence');
 
 //-- PortAudio setup
 let ai = new portAudio.AudioIO({
@@ -16,14 +17,31 @@ let ai = new portAudio.AudioIO({
     }
 });
 
+//-- Silence detector setup
+silenceDetect = new IsSilence({debug: false});
+silenceDetect.setNumSilenceFramesExitThresh(
+    parseInt(config.input.silentFrames, 10)
+);
+
 //-- Pipe audio to modules
-ai.pipe(mixer.channel[0]);
+ai.pipe(silenceDetect);
+silenceDetect.pipe(mixer.channel[0]);
 mixer.channel[0].pipe(streamer.input);
 mixer.channel[0].pipe(recorder.input);
 
 //-- PortAudio event handlers
 ai.on('error', err => {
     console.error(`[ AUD ] Error: ${err}`);
+});
+
+silenceDetect.on('silence', () => {
+    console.warn('[ AUD ] Audio: silence detected');
+    mailer.alertSilence();
+});
+
+silenceDetect.on('sound', () => {
+    console.info('[ AUD ] Audio: input is back');
+    mailer.alertSound();
 });
 
 //-- Start everything
