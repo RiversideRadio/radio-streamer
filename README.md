@@ -1,7 +1,11 @@
 # Radio Streamer
 This is a node interface between a radio station's audio output and an [Icecast](https://icecast.org/) server. In our case, the streamer receives audio from [Myriad Playout](https://www.broadcastradio.com/myriad-playout) and sends it to our Icecast hosting service. 
 
-TODO: switch to an emergency broadcast recording in the event audio input goes silent.
+## Features
+* Streams audio input to Icecast
+* Records input in a similar fashion to [PlayIt Recorder](https://www.playitsoftware.com/Products/Recorder) or [Rotter](https://github.com/njh/rotter)
+* Sends email notifications when audio input falls silent
+* TODO: Switch to an emergency broadcast when audio input falls silent
 
 ## Installation
 Clone the repository, then install the dependencies:
